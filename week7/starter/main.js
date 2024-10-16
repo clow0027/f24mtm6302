@@ -94,7 +94,7 @@ function displayProducts(productsArr){
                 </div>
               </div>`);
   }) //closes the function and ForEach
-}
-productContainer.innerHTML = htmlTemplate.join('');
+  productContainer.innerHTML = htmlTemplate.join('');
+} //close function
 
 displayProducts(products);
