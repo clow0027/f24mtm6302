@@ -76,37 +76,33 @@ function displayProducts(productsArr){
   //   For each 'product':
   productsArr.forEach(product => {
     //Paste card template from HTML
-    htmlTemplate.push(`<div class="col col-12 col-md-6 col-lg-4 mb-4">
-                <div class="card h-100 d-flex flex-column rounded-0">
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#productModal">
-                    <img src="../../assets/images/${product.image}" class="img-fluid mb-3" alt="${product.title}">
-                  </a>
-                  <div class="card-body d-flex flex-column">
-                    <h3 class="card-title text-center mb-3">${product.title}</h3>
-                    <label for="material" class="form-label mb-0 me-2">Material:</label>
-                    <select name="material" id="material" class="form-select mb-3 rounded-0">`) // closes push
-                    //Makes Materials Dynamic
-                    //get keys of
-                      <option value="cotton">Cotton</option>
-                      <option value="polyester">Polyester</option>
-                      <option value="">Blend</option>
-                    </select>
-                    <div class="mt-auto d-flex justify-content-between align-items-center">
-                      <p class="mb-0"><strong>$${product.basePrice}</strong></p>
-                      <button class="btn btn-secondary rounded-0">Add to cart</button>
-                    </div>
-                  </div>
-                </div>
-              </div>`);
-
-  }) //closes the function and the forEach method
-//   Set 'productContainer.innerHTML' to the joined string of 'htmlTemplate'
-//This gives us a single string that contains all elements
-  productContainer.innerHTML = htmlTemplate.join('')
-}//Closes the function
-
-// Call 'displayProducts' to execute the function
-displayProducts(products);
-
-//Refactor to include dynamic properties
-
+    htmlTemplate.push(`
+      <div class="col col-12 col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 d-flex flex-column rounded-0">
+          <a href="#" data-bs-toggle="modal" data-bs-target="#productModal">
+            <img src="../../assets/images/${product.image}" class="img-fluid mb-3" alt="${product.title}">
+          </a>
+          <div class="card-body d-flex flex-column">
+            <h3 class="card-title text-center mb-3">${product.title}</h3>
+            <label for="material-${product.id}" class="form-label mb-0 me-2">Material:</label>
+                      <select name="" id="material-${product.id}" class="form-select mb-3 rounded-0">
+            `)
+  
+          Object.entries(product.materials).forEach( material => htmlTemplate.push(`<option value="">${material[0]} </option>`));
+  
+          htmlTemplate.push(`
+              </select>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+              <p class="mb-0"><strong>$${product.basePrice}</strong></p>
+              <button class="btn btn-secondary rounded-0" aria-label="Add ${product.title} to cart">Add to cart</button>
+            </div>
+          </div>
+        </div>
+      </div>`);
+      productContainer.innerHTML = htmlTemplate.join('');
+    });
+  }
+  
+  // Call the function to display products
+  displayProducts();
+  
